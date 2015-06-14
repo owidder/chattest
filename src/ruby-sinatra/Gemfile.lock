@@ -32,3 +32,6 @@ DEPENDENCIES
   pusher
   sinatra
   uuid
+
+BUNDLED WITH
+   1.10.3
