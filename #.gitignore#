@@ -1,4 +1,3 @@
 *.DS_Store
 src/nodejs/node_modules
-src/.idea/
-src/bower_components/
+src/.idea
