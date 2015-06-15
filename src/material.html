@@ -26,6 +26,18 @@
 			e.src = (location.protocol === "https:" ? "https:" : "http:") + "//scrollback.io/client.min.js";
 			d.getElementsByTagName(s)[0].parentNode.appendChild(e);
 		}(document, "script"));</script>
+		<link href="pusher-chat-widget.css" rel="stylesheet" />
+		<script src="http://js.pusher.com/3.0/pusher.min.js"></script>
+		<script src="js/PusherChatWidget.js"></script>
+		<script>
+			$(function() {
+				var pusher = new Pusher("8b6aa40fbb5700a4aa2e")
+				var chatWidget = new PusherChatWidget(pusher, {
+					appendTo: "#pusher_chat_widget",
+					chatEndPoint: "/chat"
+				});
+			});
+		</script>
 	</head>
 	<body>
 	
@@ -45,8 +57,10 @@
 				<div class="icon-and-title-flex">
 					<div class="title-container">
 						<!-- REPLACE WITH YOUR APP NAME -->
-						<span class="text-title">Chats</span>
-					</div>	
+						<span class="text-title">Pusher.com</span>
+						<div class="span5" id="pusher_chat_widget">
+						</div>
+					</div>
 				</div><br><br><br>
 				<!-- REPLACE WITH YOUR APP DESCRIPTION -->
 				<span class="text-description"></span>
