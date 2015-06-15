@@ -19,6 +19,9 @@
 		<link rel="import" href="bower_components/paper-fab/paper-fab.html">
 		<link rel="import" href="bower_components/core-icons/core-icons.html">
 
+		<script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+		<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+		<link rel='stylesheet' type='text/css' href='/resources/tutorial/css/example.css'>
 		<script>window.scrollback = {"room": "testroom0614-2", "form": "toast", "minimize": true};
 		(function (d, s, h, e) {
 			e = d.createElement(s);
@@ -62,6 +65,16 @@
 						</div>
 					</div>
 				</div><br><br><br>
+				<div class="icon-and-title-flex">
+					<div class="title-container">
+						<!-- REPLACE WITH YOUR APP NAME -->
+						<span class="text-title">Firebase</span>
+						<div id='messagesDiv'></div>
+						<input type='text' id='nameInput' placeholder='Name'>
+						<input type='text' id='messageInput' placeholder='Message'>
+						</div>
+					</div>
+				</div><br><br><br>
 				<!-- REPLACE WITH YOUR APP DESCRIPTION -->
 				<span class="text-description"></span>
 			</div>
@@ -70,7 +83,26 @@
 		<!-- ===================================================================================================== -->
 			
 		<!-- JAVASCRIPT -->
-		
+
+		<script>
+			var myDataRef = new Firebase('https://s3nelq5qvo6.firebaseio-demo.com/');
+			$('#messageInput').keypress(function (e) {
+				if (e.keyCode == 13) {
+					var name = $('#nameInput').val();
+					var text = $('#messageInput').val();
+					myDataRef.push({name: name, text: text});
+					$('#messageInput').val('');
+				}
+			});
+			myDataRef.on('child_added', function(snapshot) {
+				var message = snapshot.val();
+				displayChatMessage(message.name, message.text);
+			});
+			function displayChatMessage(name, text) {
+				$('<div/>').text(text).prepend($('<em/>').text(name+': ')).appendTo($('#messagesDiv'));
+				$('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
+			};
+		</script>
 		<!-- Animations -->
 		<script src="js/wow.min.js"></script>
 		<script>
